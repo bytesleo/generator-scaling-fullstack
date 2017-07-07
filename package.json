@@ -1,6 +1,6 @@
 {
   "name": "generator-scaling-fullstack",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple RESTful server designed for horizontal scalability, based on [MERN] MongoDb, Express, Redis, NodeJS.",
   "homepage": "",
   "author": {
