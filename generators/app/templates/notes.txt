@@ -1,0 +1,11 @@
+server
+  * package.json
+  * src/config/index.js
+  * src/config/production.js
+  * src/core/engine.js
+  * src/core/router.js
+  * src/lib/auth/index.js
+
+react
+  * package.json
+  * src/config.js
