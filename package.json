@@ -1,6 +1,6 @@
 {
   "name": "generator-scaling-fullstack",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Simple RESTful server designed for horizontal scalability, based on [MERN] MongoDb, Express, Redis, NodeJS.",
   "homepage": "",
   "author": {
@@ -31,7 +31,7 @@
     "nsp": "^2.6.3",
     "eslint": "^4.1.0",
     "eslint-config-xo-space": "^0.16.0",
-    "jest": "^19.0.2",
+    "jest": "^20.0.4",
     "jest-cli": "^20.0.0"
   },
   "dependencies": {
