@@ -3,6 +3,11 @@
 
 ## Installation
 
+- Node >= 6.x.x (Recommended 8.x.x)
+- Npm  >= 3.x.x (Recommended 5.x.x)
+- MongoDB  >= 3.x.x
+- Redis  >= 3.x.x
+
 First, install [Yeoman](http://yeoman.io) and generator-scaling-fullstack using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
 
 ```bash
@@ -26,6 +31,26 @@ yo scaling-fullstack
  * Yeoman is a person with feelings and opinions, but is very easy to work with.
  * Yeoman can be too opinionated at times but is easily convinced not to be.
  * Feel free to [learn more about Yeoman](http://yeoman.io/).
+
+
+## Start [Development]
+
+`npm start`
+
+Listen Server (default): <http://localhost:8000>
+Listen Client (default): <http://localhost:3000>
+
+## Build
+
+`npm run build`
+
+output: `server/dist`
+example: `node server/dist/server/app.js`
+
+## Test
+
+`npm test`
+
 
 ## License
 
