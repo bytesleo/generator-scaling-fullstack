@@ -1,11 +1,15 @@
 const Generator = require('yeoman-generator');
 module.exports = class extends Generator {
- 
-    prompting() {
-    	console.log(this.args);
-        console.log('prompting - server');
-    }
-    writing() {
-        console.log('writing - server');
-    }
+
+  initializing() {
+    // console.log('server 1');
+  }
+
+  prompting() {
+    // console.log(this.args);
+    // console.log('server - prompting');
+  }
+  writing() {
+    // console.log('server - writing');
+  }
 };
