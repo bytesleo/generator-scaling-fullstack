@@ -8,4 +8,5 @@ server
 
 react
   * package.json
+  * webpack.config.js
   * src/config.js
