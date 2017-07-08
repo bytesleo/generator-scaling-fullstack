@@ -1,20 +1,21 @@
-//#production
-const mode = 'production'; // development, production
-const project = 'nodetomic-api'; //DB example name: nodetomic-api-development / swagger title: nodetomic-api / secret: s3kr3t_$k3y_&5ess10n?%-nodetomic-api-development
-
+//-------------production-----------------
 import path from 'path';
+const mode = 'production'; // development or production
+const project = '<%= name %>'; //DB example name: nodetomic-api-development / swagger title: nodetomic-api / secret: s3kr3t_$k3y_&5ess10n?%-nodetomic-api-development
+const pathRoot = path.normalize(`${__dirname}/../..`);
+const pathBase = path.normalize(`${__dirname}/..`);
 
 export default {
   mode : mode, // Mode
-  root : path.normalize(`${__dirname}/../../`), // Path Root
-  base : path.normalize(`${__dirname}/..`), // Path Base
-  client : 'client', // Folder Client
+  root : pathRoot, // Path Root
+  base : pathBase, // Path Base
+  client : `${pathRoot}/<%= pathDistServerPro %>`, // Path Client
   server : { // Server listen
     ip: 'localhost',
-    port: 8000
+    port: <%= serverPortPro %>
   },
   secret : `s3kr3t_$k3y_&5ess10n?%-${project}-${mode}`, // Secret key
-  session : 'defaultStore', // defaultStore, mongoStore, redisStore / [Required for Twitter oAuth or sessions local...]
+  session : 'defaultStore', // defaultStore, mongoStore, redisStore / [Required for Twitter oAuth or sessions local (no redis)...]
   // Roles
   roles : [
     {
@@ -78,36 +79,58 @@ export default {
     token: {
       uri: 'redis://127.0.0.1:6379/0', // [format-> redis://user:password@host:port/db-number?db=db-number&password=bar&option=value]
       time: 1440, // by default 1440 minutes = 24 hours,
-      multiple: false // if you want multiples logins or only one device in same time
+      multiple: <%= multipleDevices %> // if you want multiples logins or only one device in same time
     }
   },
+  <% if(auth.enabled){ %>
   oAuth : { // oAuth
+    <% if(auth.local){ %>
+    local:{
+      enabled: true
+    },
+    <% } %>
+    <% if(auth.facebook){ %>
     facebook: {
+      enabled: false,
       clientID: '',
       clientSecret: '',
       callbackURL: '/auth/facebook/callback'
     },
+    <% } %>
+    <% if(auth.twitter){ %>
     twitter: {
+      enabled: false,
       clientID: '',
       clientSecret: '',
       callbackURL: '/auth/twitter/callback'
     },
+    <% } %>
+    <% if(auth.google){ %>
     google: {
+      enabled: false,
       clientID: '',
       clientSecret: '',
       callbackURL: '/auth/google/callback'
     },
+    <% } %>
+    <% if(auth.github){ %>
     github: {
-      clientID: '52be92c9a41f77a959eb',
-      clientSecret: '76c9bb03c689d098506822fa80dba372a1fe29c8',
+      enabled: false,
+      clientID: '',
+      clientSecret: '',
       callbackURL: '/auth/github/callback'
     },
+    <% } %>
+    <% if(auth.bitbucket){ %>
     bitbucket: {
+      enabled: false,
       clientID: '',
       clientSecret: '',
       callbackURL: '/auth/bitbucket/callback'
     }
+    <% } %>
   },
+  <% } %>
   // DEV
   livereload : { // livereload
     enabled: false,
