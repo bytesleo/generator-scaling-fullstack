@@ -3,7 +3,6 @@ const chalk = require('chalk');
 const yosay = require('yosay');
 const path = require('path');
 
-
 module.exports = class extends Generator {
   constructor(args, opts) {
     // Calling the super constructor is important so our generator is correctly set up
@@ -13,28 +12,138 @@ module.exports = class extends Generator {
   }
   prompting() {
 
-    this.log(yosay('Welcome to ' + chalk.green('SCALING-FULLSTACK') +
-      ' generator!'));
+    this.log(yosay(
+      `Welcome to ${chalk.greenBright('SCALING-FULLSTACK')} generator!`
+    ));
 
     return this.prompt([{
-      type: 'input',
-      name: 'name',
-      message: 'Your project name',
-      store: true,
-      default: this.appname // Default to current folder name
-    }, {
-      type: 'input',
-      name: 'description',
-      message: 'Description project',
-      store: true
-    }, {
-      type: 'confirm',
-      name: 'cool',
-      store: true,
-      message: 'Would you like to enable the Cool feature?'
-    }]).then((answers) => {
+        type: 'input',
+        name: 'name',
+        message: 'Your project name',
+        store: true,
+        default: this.appname // Default to current folder name
+      }, {
+        type: "list",
+        name: "stack",
+        message: "Which stack do you want?",
+        choices: ["fullstack", "client", "server"],
+        default: 0
+      }, {
+        type: "list",
+        name: "client",
+        message: "Which Client do you want?",
+        choices: [{
+          name: 'ReactJS (ARC)',
+          value: 'react'
+        }, {
+          name: 'VueJS',
+          value: 'vuejs'
+        }, {
+          name: 'Angular (CLI',
+          value: 'angular'
+        }],
+        default: 0,
+        when: (answersHash) => {
+          return answersHash.stack !== "server";
+        }
+      }, {
+        type: "input",
+        name: "clientPortDev",
+        message: 'Port to run the Client? (Development)',
+        default: 3000,
+        when: (answersHash) => {
+          return answersHash.stack !== "server";
+        }
+      }, {
+        type: "list",
+        name: "db",
+        message: "Which Datadase do you want?",
+        choices: ["Mongoose"],
+        default: 0,
+        when: (answersHash) => {
+          return answersHash.stack !== "client";
+        }
+      }, {
+        type: 'confirm',
+        name: 'auth',
+        message: 'Do you want to use authentication?',
+        default: 'Y',
+        when: (answersHash) => {
+          return answersHash.stack !== "client";
+        }
+      }, {
+        type: 'confirm',
+        name: 'multipleDevices',
+        message: 'Want multiple login? (If you only want one device at the time select N)',
+        default: 'Y',
+        when: (answersHash) => {
+          return answersHash.stack !== "auth";
+        }
+      }, {
+        type: "checkbox",
+        name: "authList",
+        message: "Select the ones you want to integrate:",
+        choices: [{
+          name: 'Local',
+          checked: true,
+          value: 'local'
+        }, {
+          name: 'Google',
+          checked: true,
+          value: 'google'
+        }, {
+          name: 'Facebook',
+          checked: true,
+          value: 'facebook'
+        }, {
+          name: 'Twitter',
+          checked: true,
+          value: 'twitter'
+        }, {
+          name: 'Github',
+          checked: false,
+          value: 'github'
+        }, {
+          name: 'Bitbucket',
+          checked: false,
+          value: 'bitbucket'
+        }],
+        when: (answersHash) => {
+          return answersHash.auth;
+        }
+      }, {
+        type: "input",
+        name: "serverPortDev",
+        message: 'Port to run the Server? (Development)',
+        default: 8000,
+        when: (answersHash) => {
+          return answersHash.stack !== "client";
+        },
+        validate: (answer, answersHash) => {
+          if (answer == answersHash.clientPortDev) {
+            return "Select a different port than the Client";
+          }
+          return true;
+        }
+      }, {
+        type: "input",
+        name: "serverPortPro",
+        message: 'Port to run Server + Client? (Production)',
+        default: 9000,
+        when: (answersHash) => {
+          return answersHash.stack !== "client";
+        },
+        validate: (answer, answersHash) => {
+          if (answer == answersHash.clientPortDev) {
+            return "Select a different port than the Client";
+          }
+          return true;
+        }
+      }
+
+    ]).then((answers) => {
       this.log('app', answers.name, 'has been created!');
-      this.log('cool feature', answers.cool);
+      //this.log('cool feature', answers.cool);
       this.props = answers;
     });
   }
@@ -55,8 +164,9 @@ module.exports = class extends Generator {
 
   writing() {
 
-    //console.log('->', this.props);
+    console.log('->', this.props);
 
+    return;
     //<----------Server---------->
 
     this.fs.copy(
