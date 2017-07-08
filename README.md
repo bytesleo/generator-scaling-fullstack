@@ -10,7 +10,7 @@ npm install -g yo
 npm install -g generator-scaling-fullstack
 ```
 - Mongodb: <https://www.mongodb.com>
-- Redis: <https://redis.io/> - Ubuntu (sudo apt-get install redis-server) - Mac (brew install redis)
+- Redis: <https://redis.io> - Ubuntu (sudo apt-get install redis-server) - Mac (brew install redis)
 
 Then generate your new project:
 
