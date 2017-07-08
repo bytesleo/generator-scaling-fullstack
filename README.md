@@ -9,10 +9,14 @@ First, install [Yeoman](http://yeoman.io) and generator-scaling-fullstack using 
 npm install -g yo
 npm install -g generator-scaling-fullstack
 ```
+- Mongodb: <https://www.mongodb.com>
+- Redis: <https://redis.io/> - Ubuntu (sudo apt-get install redis-server) - Mac (brew install redis)
 
 Then generate your new project:
 
 ```bash
+mkdir example-app
+cd example-app
 yo scaling-fullstack
 ```
 
@@ -25,7 +29,7 @@ yo scaling-fullstack
 
 ## License
 
-MIT © [Leonardo Rico]()
+MIT © [Leonardo Rico](https://github.com/kevoj/generator-scaling-fullstack/blob/master/LICENSE)
 
 
 [npm-image]: https://badge.fury.io/js/generator-scaling-fullstack.svg
