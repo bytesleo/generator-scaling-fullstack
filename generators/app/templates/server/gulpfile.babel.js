@@ -38,7 +38,7 @@ gulp.task('build-replace', () => {
   gulp.src(`${dist_server}/core/engine.js`).pipe(replace_string("require('./dev').default(app);", '')).pipe(gulp.dest(`${dist_server}/core`));
   gulp.src('package.json').pipe(jsonModify({'key': 'devDependencies', value: {}})).pipe(gulp.dest(dist));
   if (!fs.existsSync(`${dist}/client`)) {
-    gulp.src(['client']).pipe(gulp.dest(dist));
+    gulp.src(['client/*']).pipe(gulp.dest(`${dist}/client`));
   }
   setTimeout(() => console.log(color('Build success!', 'GREEN')), 500);
 });
